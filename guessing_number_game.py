@@ -1,4 +1,5 @@
 import random
+import time
 
 def escolher_dificuldade(): #escolhendo dificuldade
     print("Bem vindo ao jogo de adivinhar o número!")
@@ -25,9 +26,8 @@ def escolher_dificuldade(): #escolhendo dificuldade
     print("Vamos começar o jogo!")
     return numero_tentativas
 
-numero_tentativas = escolher_dificuldade()
 
-def jogar_rodada(): #funcao para o chute do numero
+def jogar_rodada(numero_tentativas): #funcao para o chute do numero, usa como parametro o numero de tentativas
     acertou = False
     tentativa_atual = 0
     numero_aleatorio = random.randint(0,100) #numero aleatorio nao altera dependendo da dificuldade
@@ -44,6 +44,23 @@ def jogar_rodada(): #funcao para o chute do numero
                 print(f"Errou! O número é maior que {numero}.") 
         tentativa_atual += 1 #somar ao numero de tentativas
     return acertou #ao fim do loop, vai retornar se foi falso o chute ou verdadeiro
-        
-resposta = jogar_rodada()
-nova_tentativa = False
+
+
+
+def tentar_novamente():
+    resposta = input("Deseja jogar novamente? (Sim/Não): ") #perguntar se quer continuar
+    if resposta.lower() == "sim": #se a respostaa for sim, retornar verdadeiro para a função
+        return True
+    else: #se nao, retornar falso para a funcao
+        print("Fim de jogo! Obrigado por jogar!")
+        return False
+
+def main(): 
+    jogar_novamente = True
+    
+    while jogar_novamente == True:
+        numero_tentativas = escolher_dificuldade()
+        resposta = jogar_rodada(numero_tentativas)
+        jogar_novamente = tentar_novamente() #main funciona somente se a funcao tentar novamente for verdadeira
+
+main()
